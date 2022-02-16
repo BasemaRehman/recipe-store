@@ -1,6 +1,5 @@
 package com.springboot.recipestore;
 
-import com.springboot.recipestore.models.Recipe;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
