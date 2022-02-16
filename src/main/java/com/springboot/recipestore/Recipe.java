@@ -1,4 +1,4 @@
-package com.springboot.recipestore.models;
+package com.springboot.recipestore;
 
 import javax.persistence.*;
 import java.util.List;
