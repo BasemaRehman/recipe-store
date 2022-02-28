@@ -12,26 +12,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        database-name:
-          - springbootapps
-        database-password:
-          - password
-        database-user:
-          - postgres
-        database-host:
-          - 127.0.0.1
-        database-port:
-          - 5432
-
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:14.1
         env:
-          POSTGRES_DB: ${{ matrix.database-name }}
-          POSTGRES_USER: ${{ matrix.database-user }}
-          POSTGRES_PASSWORD: ${{ matrix.database-password }}
+          POSTGRES_DB: "springbootapps"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "password"
         ports:
           - 5432:5432
         # Set health checks to wait until postgres has started
@@ -44,12 +31,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Connect to database
       env:
-        DATABASE_NAME_TEST: ${{ matrix.database-name }}
-        DATABASE_USER: ${{ matrix.database-user }}
-        DATABASE_PASSWORD: ${{ matrix.database-password }}
-        DATABASE_HOST: ${{ matrix.database-host }}
-        DATABASE_PORT: ${{ matrix.database-port }}
-        POSTGRES_DB: ${{ matrix.database-name }}
+        DATABASE_NAME_TEST: 'springbootapps'
+        DATABASE_USER: 'postgres'
+        DATABASE_PASSWORD: 'password'
+        DATABASE_HOST: '127.0.0.1'
+        DATABASE_PORT: '5432'
+        POSTGRES_DB: 'springbootapps'
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
