@@ -37,10 +37,6 @@ jobs:
           # If we were running the job on in a container this would be postgres
           POSTGRES_HOST: localhost
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
-  build:
-    needs: vm-job
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v2
       - name: Setup PostgreSQL
         uses: actions/checkout@v1
