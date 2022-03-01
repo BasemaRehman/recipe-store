@@ -41,8 +41,8 @@ jobs:
     needs: vm-job
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Setup PostgreSQL 
-      - uses: BasemaRehman/postgresql-action@v1.0.0 
         with: 
           postgresql db: springbootapps 
           postgresql user: postgres 
