@@ -10,33 +10,36 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  vm-job:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:14.1
         env:
-          POSTGRES_DB: "springbootapps"
-          POSTGRES_USER: "postgres"
-          POSTGRES_PASSWORD: "password"
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: springbootapps
         ports:
-          - 5432:5432
-        # Set health checks to wait until postgres has started
-        options:
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          # will assign a random free host port
+          - 5432/tcp
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
-    - name: Connect to database
-    - uses: actions/checkout@v2
-      env:
-        DATABASE_NAME_TEST: 'springbootapps'
-        DATABASE_USER: 'postgres'
-        DATABASE_PASSWORD: 'password'
-        DATABASE_HOST: '127.0.0.1'
-        DATABASE_PORT: '5432'
-        POSTGRES_DB: 'springbootapps'
+      - uses: actions/checkout@v1
+      - run: npm ci
+        working-directory: ./postgres
+      - run: node client.js
+        working-directory: ./postgres
+        env:
+          # use localhost for the host here because we are running the job on the VM.
+          # If we were running the job on in a container this would be postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
+  build:
+    runs-on: ubuntu-latest
+    steps:
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
