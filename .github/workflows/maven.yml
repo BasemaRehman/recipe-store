@@ -38,6 +38,7 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
   build:
+    needs: vm-job
     runs-on: ubuntu-latest
     steps:
     - name: Set up JDK 17
