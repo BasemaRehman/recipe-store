@@ -1,4 +1,4 @@
-name: Gradle Build
+name: Build
 
 on:
   push:
@@ -28,5 +28,7 @@ jobs:
         java-version: 1.17
   #      - name: Build with mvn
   #        run: ./mvnw clean build -x test
+    - name: Change wrapper permissions
+      run: chmod +x ./mvnw
     - name: Run tests
       run: ./mvnw test
