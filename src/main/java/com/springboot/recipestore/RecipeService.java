@@ -19,4 +19,12 @@ public class RecipeService {
     List<Recipe> selectAllRecipes(){
         return recipeInterface.findAll();
     }
+
+    Recipe selectRecipeByName(String name){
+        return recipeInterface.getById(name);
+    }
+
+    void insertNewRecipe(Recipe recipe){
+        recipeInterface.save(recipe);
+    }
 }

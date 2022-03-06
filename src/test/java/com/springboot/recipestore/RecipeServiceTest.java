@@ -3,14 +3,17 @@ package com.springboot.recipestore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import com.springboot.recipestore.Recipe.RecipeBuilder;
 
+import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class RecipeServiceTest {
@@ -28,5 +31,30 @@ class RecipeServiceTest {
     void selectAllRecipes() {
         List<Recipe> results = underTest.selectAllRecipes();
         assertEquals(0, results.size());
+    }
+
+    @Test
+    void selectRecipeByName() {
+        //When
+        underTest.selectRecipeByName("cake");
+        //Then
+        verify(recipeInterface).getById("cake");
+    }
+
+    @Test
+    void insertNewRecipe() {
+        Recipe recipe = new RecipeBuilder().setName("cake")
+                .setCategory("test")
+                .setIngredients(Collections.singletonList("test"))
+                .setMethod("test")
+                .setSize("1")
+                .build();
+        //When
+        underTest.insertNewRecipe(recipe);
+        //Then
+        ArgumentCaptor<Recipe> captor = ArgumentCaptor.forClass(Recipe.class);
+        verify(recipeInterface).save(captor.capture());
+        Recipe captured = captor.getValue();
+        assertThat(captured).isEqualTo(recipe);
     }
 }
