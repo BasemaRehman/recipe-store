@@ -1,9 +1,7 @@
 package com.springboot.recipestore;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +18,15 @@ public class RecipeController {
     @GetMapping
     public List<Recipe> selectAllRecipes(){
         return recipeService.selectAllRecipes();
+    }
+
+    @GetMapping(path = "{Id}")
+    public Recipe selectRecipeByName(@PathVariable("Id") String name){
+        return recipeService.selectRecipeByName(name);
+    }
+
+    @PostMapping
+    public void insertNewRecipe(@RequestBody Recipe recipe){
+        recipeService.insertNewRecipe(recipe);
     }
 }

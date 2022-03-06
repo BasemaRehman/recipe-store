@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 @Table(name = "Recipes")
 public class Recipe {
-    @SequenceGenerator(
+  /*  @SequenceGenerator(
             name = "recipe_sequence",
             sequenceName = "recipe_sequence",
             allocationSize = 1
@@ -14,9 +14,10 @@ public class Recipe {
     @GeneratedValue(
             generator = "recipe_sequence",
             strategy = GenerationType.SEQUENCE
-    )
-    @Id
-    private Integer id;
+    )*/
+
+   // private Integer id;
+   @Id
     private String name;
     private String category;
     private String size;
