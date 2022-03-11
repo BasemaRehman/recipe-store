@@ -24,7 +24,18 @@ public class RecipeService {
         return recipeInterface.getById(name);
     }
 
-    void insertNewRecipe(Recipe recipe){
+    String insertNewRecipe(Recipe recipe){
         recipeInterface.save(recipe);
+        return "Insertion Successful";
     }
+
+    void deleteRecipeByName(String name){
+        recipeInterface.deleteById(name);
+    }
+
+    void updateRecipeByName(String name, List<String> ingredients){
+        recipeInterface.updateRecipeByName(name, ingredients);
+    }
+
+
 }
