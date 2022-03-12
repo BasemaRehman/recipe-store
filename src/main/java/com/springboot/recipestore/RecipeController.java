@@ -26,7 +26,17 @@ public class RecipeController {
     }
 
     @PostMapping
-    public void insertNewRecipe(@RequestBody Recipe recipe){
-        recipeService.insertNewRecipe(recipe);
+    public String insertNewRecipe(@RequestBody Recipe recipe){
+        return recipeService.insertNewRecipe(recipe);
+    }
+
+    @DeleteMapping(path = "{Id}")
+    public void deleteRecipeById(@PathVariable("Id") String name){
+        recipeService.deleteRecipeByName(name);
+    }
+
+    @PutMapping(path = "/ingredients/{Id}")
+    public void updateRecipeByName(@PathVariable("Id") String name, @RequestBody String[] ingredients){
+        recipeService.updateRecipeByName(name, ingredients);
     }
 }
