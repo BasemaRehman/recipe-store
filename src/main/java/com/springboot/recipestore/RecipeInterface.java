@@ -18,5 +18,5 @@ public interface RecipeInterface extends JpaRepository<Recipe, String> {
             "SET r.ingredients = ?2 " +
             "WHERE r.name = ?1"
     )
-    void updateRecipeByName(String name, List<String> Ingredients);
+    void updateRecipeByName(String name, String[] ingredients);
 }

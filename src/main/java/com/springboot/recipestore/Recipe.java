@@ -21,9 +21,8 @@ public class Recipe {
     private String name;
     private String category;
     private String size;
-    @ElementCollection
-    private List<String> ingredients;
-    private String method;
+    private String[] ingredients;
+    private String[] method;
 
     public String getName() {
         return name;
@@ -37,11 +36,11 @@ public class Recipe {
         return size;
     }
 
-    public List<String> getIngredients() {
+    public String[] getIngredients() {
         return ingredients;
     }
 
-    public String getMethod() {
+    public String[] getMethod() {
         return method;
     }
 
@@ -52,8 +51,8 @@ public class Recipe {
         private String name;
         private String category;
         private String size;
-        private List<String> ingredients;
-        private String method;
+        private String[] ingredients;
+        private String[] method;
 
         public RecipeBuilder(){
         }
@@ -67,7 +66,7 @@ public class Recipe {
             this.category = category;
             return this;
         }
-        public RecipeBuilder setIngredients(List<String> ingredients) {
+        public RecipeBuilder setIngredients(String[] ingredients) {
             this.ingredients = ingredients;
             return this;
         }
@@ -77,7 +76,7 @@ public class Recipe {
             return this;
         }
 
-        public RecipeBuilder setMethod(String method) {
+        public RecipeBuilder setMethod(String[] method) {
             this.method = method;
             return this;
         }

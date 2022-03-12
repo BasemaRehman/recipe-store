@@ -3,8 +3,6 @@ package com.springboot.recipestore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -37,9 +35,8 @@ public class RecipeController {
         recipeService.deleteRecipeByName(name);
     }
 
-   /* @PutMapping(path = "{Id}")
-    public void updateRecipeByName(@PathVariable("Id") String name, @RequestBody String ingredients){
-        List<String> ingred = Arrays.asList(ingredients.split(","));
-        recipeService.updateRecipeByName(name, ingred);
-    }*/
+    @PutMapping(path = "/ingredients/{Id}")
+    public void updateRecipeByName(@PathVariable("Id") String name, @RequestBody String[] ingredients){
+        recipeService.updateRecipeByName(name, ingredients);
+    }
 }

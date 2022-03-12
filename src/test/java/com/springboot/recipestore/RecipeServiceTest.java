@@ -45,8 +45,8 @@ class RecipeServiceTest {
     void insertNewRecipe() {
         Recipe recipe = new RecipeBuilder().setName("cake")
                 .setCategory("test")
-                .setIngredients(Collections.singletonList("test"))
-                .setMethod("test")
+                .setIngredients(new String[]{"test"})
+                .setMethod(new String[]{"test"})
                 .setSize("1")
                 .build();
         //When

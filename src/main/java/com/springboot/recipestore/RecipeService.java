@@ -33,7 +33,7 @@ public class RecipeService {
         recipeInterface.deleteById(name);
     }
 
-    void updateRecipeByName(String name, List<String> ingredients){
+    void updateRecipeByName(String name, String[] ingredients){
         recipeInterface.updateRecipeByName(name, ingredients);
     }
 
