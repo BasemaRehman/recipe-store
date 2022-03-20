@@ -44,7 +44,7 @@ public class Recipe {
         return method;
     }
 
-    private Recipe(){}
+    public Recipe(){}
 
     public static class RecipeBuilder{
 
