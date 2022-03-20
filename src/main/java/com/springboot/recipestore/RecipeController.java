@@ -20,7 +20,7 @@ public class RecipeController {
         return recipeService.selectAllRecipes();
     }
 
-    @GetMapping(path = "{Id}")
+    @GetMapping(path = "/{Id}")
     public Recipe selectRecipeByName(@PathVariable("Id") String name){
         return recipeService.selectRecipeByName(name);
     }
@@ -30,13 +30,23 @@ public class RecipeController {
         return recipeService.insertNewRecipe(recipe);
     }
 
-    @DeleteMapping(path = "{Id}")
+    @DeleteMapping(path = "/{Id}")
     public void deleteRecipeById(@PathVariable("Id") String name){
         recipeService.deleteRecipeByName(name);
     }
 
     @PutMapping(path = "/ingredients/{Id}")
-    public void updateRecipeByName(@PathVariable("Id") String name, @RequestBody String[] ingredients){
-        recipeService.updateRecipeByName(name, ingredients);
+    public void updateIngredientsByName(@PathVariable("Id") String name, @RequestBody String[] ingredients){
+        recipeService.updateIngredientsByName(name, ingredients);
+    }
+
+    @PutMapping(path = "/method/{Id}")
+    public void updateMethodByName(@PathVariable("Id") String name, @RequestBody String[] method){
+        recipeService.updateMethodByName(name, method);
+    }
+
+    @PutMapping(path = "/{Id}")
+    public void updateRecipeByName(@PathVariable("Id") String name, @RequestBody Recipe recipe){
+        recipeService.updateRecipeByName(name, recipe);
     }
 }
