@@ -7,6 +7,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/recipes")
+@CrossOrigin("*")
 public class RecipeController {
     private final RecipeService recipeService;
 
