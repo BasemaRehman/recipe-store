@@ -8,7 +8,10 @@ import ListRecipePagesComponent from './components/ListRecipePagesComponent';
 
 function App() {
   return (
-    <ListRecipePagesComponent />
+    <div className="container">
+      <ListRecipePagesComponent />
+    </div>
+    
   );
 }
 

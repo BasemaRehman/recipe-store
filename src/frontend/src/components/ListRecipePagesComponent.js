@@ -25,16 +25,18 @@ class ListRecipePagesComponent extends Component {
     render() {
         return (
             <div className="container">
-                {this.state.recipes.map(
-                    recipe => <Card key = {recipe.name} title={recipe.name} 
-                category={recipe.category} 
-                serving={recipe.size}/>
-                )}
+                
                 <Card title="testTitle" 
                 category="testCategory" 
                 serving="testSize5"/>
             </div>
-           /* <div>
+           /* 
+           {this.state.recipes.map(
+                    recipe => <Card key = {recipe.name} title={recipe.name} 
+                category={recipe.category} 
+                serving={recipe.size}/>
+                )}
+           <div>
                  <h2 className="text-center">Recipe List</h2>
                  <div className = "row">
                         <table className = "table table-striped table-bordered">
