@@ -1,48 +1,42 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import RecipeService from '../services/RecipeService'
 import Card from './Card';
 
-class ListRecipePagesComponent extends Component {
-    constructor(props) {
-        super(props)
+export default function ListRecipePagesComponent() {
 
-        this.state = {
-                recipes: []
-        }
+    const [recipes, setRecipes] = useState([])
+    useEffect(() => {
+        getAllRecipes();
+    }, [])
 
+    const getAllRecipes = () => {
+        RecipeService.getRecipes().then((response) => {
+            setRecipes(response.data)
+            console.log(response.data);
+        }).catch(error =>{
+            console.log(error);
+        })
     }
+  
 
-    componentDidMount(){
-        RecipeService.getRecipes().then((res) => {
-            this.setState({ recipes: res.data});
-        }
+    return (
+        <div className="wrapper">
+            {recipes.map(
+            recipe => <Card key = {recipe.name} title={recipe.name} 
+        category={recipe.category} 
+        serving={recipe.size}/>
+        )}
+            <Card title="Test Title" 
+            category="Cake" 
+            serving="Eight Slices"/>
+            <Card title="Test Title" 
+            category="Cake" 
+            serving="Eight Slices"/>
+            <Card title="Test Title" 
+            category="Cake" 
+            serving="Eight Slices"/>
+        </div>
         
-        );
-        
-    }
-
-    render() {
-        return (
-            
-            <div className="wrapper">
-                {this.state.recipes.map(
-                recipe => <Card key = {recipe.name} title={recipe.name} 
-            category={recipe.category} 
-            serving={recipe.size}/>
-            )}
-                <Card title="Test Title" 
-                category="Cake" 
-                serving="Eight Slices"/>
-                <Card title="Test Title" 
-                category="Cake" 
-                serving="Eight Slices"/>
-                <Card title="Test Title" 
-                category="Cake" 
-                serving="Eight Slices"/>
-            </div>
-           
-        )
-    }
+    )
 }
 
-export default ListRecipePagesComponent
