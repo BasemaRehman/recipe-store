@@ -9,15 +9,15 @@ export default function CreateRecipeComponent() {
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
   const [category, setCategory] = useState('')
-  const [ingredients, setIngredients] = useState('')
-  const [method, setMethod] = useState('')
+  const [stringIngredients, setIngredients] = useState('')
+  const [stringMethod, setMethod] = useState('')
 
 
   const saveRecipe = (e) => {
     e.preventDefault();
-    const splitIngredients = ingredients.split(',')
-    const splitMethod = method.split(',')
-    const recipe = {name, size, category, splitIngredients, splitMethod};
+    const ingredients = stringIngredients.split(',')
+    const method = stringIngredients.split(',')
+    const recipe = {name, size, category, ingredients, method};
     console.log(recipe);
     
     RecipeService.createRecipe(recipe).then((response) => {
@@ -61,7 +61,7 @@ export default function CreateRecipeComponent() {
         />
         <input
         onChange={(e) => setIngredients(e.target.value)}
-          value = {ingredients}
+          value = {stringIngredients}
           className="form-field"
           type="text"
           placeholder="Ingredients"
@@ -69,7 +69,7 @@ export default function CreateRecipeComponent() {
         />
         <input
         onChange={(e) => setMethod(e.target.value)}
-          value = {method}
+          value = {stringMethod}
           className="form-field"
           type="text"
           placeholder="Method"
