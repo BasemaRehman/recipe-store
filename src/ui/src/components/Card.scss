@@ -68,8 +68,10 @@ body {
     background: transparent;
     color: $clr-primary;
     border-radius: $radius;
-    transition: background 200ms ease-in, color 200ms ease-in;
+    transition: all 0.4s;
+    transition-timing-function:cubic-bezier(0.5, 3, 0, 1);
   }
+
 
   &:hover {
     transform: scale(1.02);
@@ -79,5 +81,30 @@ body {
     background: $clr-primary;
     color: white;
   }
+}
+
+.buttonbox{
+  overflow: hidden;
+  box-shadow: 0 2px 20px $clr-gray300;
+  border-radius: $radius;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 200ms ease-in;
+  padding: 10px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0.1rem;
+  border: 1px solid $clr-primary;
+  background: white;
+  color: $clr-primary;
+  border-radius: 10px;
+  transition-timing-function:cubic-bezier(0.5, 3, 0, 1);
+
 }
 

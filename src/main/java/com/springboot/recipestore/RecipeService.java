@@ -59,6 +59,8 @@ public class RecipeService {
     void updateRecipeByName(String name, Recipe recipe){
         if(recipeInterface.existsById(name)){
             recipeInterface.updateRecipeByName(name, recipe.getName(), recipe.getSize(), recipe.getCategory());
+            updateMethodByName(name, recipe.getMethod());
+            updateIngredientsByName(name, recipe.getIngredients());
         }
     }
 }
