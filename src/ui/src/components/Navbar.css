@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+main {
+    margin: 16px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background: black;
+    color: white;
+    font-family: Helvetica;
+    font-weight: 300;
+}
+
+.navbar__title {
+    margin-right: auto;
+    font-size: 150%;
+    padding: 12px 16px;
+}
+
+.navbar__item {
+    padding: 16px 16px;
+    cursor: pointer;
+    vertical-align: middle;
+    color: white;
+}
+
+.footer__page{
+    background-color: #15141f;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    color: hsla(0, 0%, 100%, .6);
+    width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
