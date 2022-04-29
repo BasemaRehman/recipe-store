@@ -67,11 +67,9 @@ export default function CreateRecipeComponent() {
       {title()}
       <div className="form-container">
         <form className="register-form">
-          {/* Uncomment the next line to show the success message */}
-          {/* <div class="success-message">Success! Thank you for registering</div> */}
           <input
             onChange={(e) => setName(e.target.value)}
-            value = {name}
+            value = {name == null ? '' : name}
             className="form-field"
             type="text"
             placeholder="Name"
@@ -79,7 +77,7 @@ export default function CreateRecipeComponent() {
           />
           <input
           onChange={(e) => setSize(e.target.value)}
-            value = {size}
+            value = {size == null ? '' : size}
             className="form-field"
             type="text"
             placeholder="Size"
@@ -87,7 +85,7 @@ export default function CreateRecipeComponent() {
           />
           <input
           onChange={(e) => setCategory(e.target.value)}
-            value = {category}
+            value = {category == null ? '' : category}
             className="form-field"
             type="text"
             placeholder="Category"
@@ -95,7 +93,7 @@ export default function CreateRecipeComponent() {
           />
           <input
           onChange={(e) => setIngredients(e.target.value)}
-            value = {stringIngredients}
+            value = {stringIngredients == null ? '' : stringIngredients}
             className="form-field"
             type="text"
             placeholder="Ingredients"
@@ -103,7 +101,7 @@ export default function CreateRecipeComponent() {
           />
           <input
           onChange={(e) => setMethod(e.target.value)}
-            value = {stringMethod}
+            value = {stringMethod == null ? '' : stringMethod}
             className="form-field"
             type="text"
             placeholder="Method"
