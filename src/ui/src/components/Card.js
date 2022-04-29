@@ -9,7 +9,7 @@ function Card(props){
           <h5 className="card__serving">{props.serving}</h5>
           </div>
 
-        <button className="card__btn">"View Recipe"</button>
+        <button className="card__btn">View Recipe</button>
         </div>
   )
 }

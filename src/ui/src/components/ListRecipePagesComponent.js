@@ -58,9 +58,10 @@ const ListRecipePagesComponent = () => {
                     category={recipe.category} 
                     serving={recipe.size}>
                 </Card>
-                <Link className= "card__btn"to={`/edit-recipe/${recipe.name}`}>Update</Link>
-                <button className="card__btn" onClick={() => {setOpenModal(true)}}>Delete {recipeName}</button>
-                
+                <div>
+                <Link className= "card__changeBtn"to={`/edit-recipe/${recipe.name}`}>Update</Link>
+                <button className="card__changeBtn" onClick={() => {setOpenModal(true)}}>Delete</button>
+                </div>
             </div>
             )}
             {openModal && <DeleteModal closeModal={setOpenModal} deletion={setdeletion}/>}
@@ -78,4 +79,3 @@ const ListRecipePagesComponent = () => {
 }
 
 export default ListRecipePagesComponent;
-
