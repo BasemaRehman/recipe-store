@@ -4,6 +4,8 @@ import Card from './Card';
 import './Card.scss';
 import { Link } from 'react-router-dom';
 import DeleteModal from './DeleteModal';
+import RecipeModal from './RecipeModal';
+import UpdateModal from './UpdateModal';
 
 const ListRecipePagesComponent = () => {
 
@@ -21,10 +23,12 @@ const ListRecipePagesComponent = () => {
         })
     }
 
-
     const [openModal, setOpenModal] = useState(false);
-    const [deletion, setdeletion] = useState(false)
+    const [deletion, setdeletion] = useState(false);
+    const [openRecipe, setOpenRecipe] = useState(false);
+    const [viewRecipe, setViewRecipe] = useState([]);
     var recipeName = '';
+ 
 
     const changeName = (name) => {
         recipeName = name
@@ -38,14 +42,7 @@ const ListRecipePagesComponent = () => {
             }).catch(error =>{
                 console.log(error);
             })
-
-        
-        
-            
-     }
-
-
-    
+         }
 
     return (
         <div className="wrapper">
@@ -56,14 +53,17 @@ const ListRecipePagesComponent = () => {
                 <Card key = {recipe.name}
                     title={recipe.name} 
                     category={recipe.category} 
-                    serving={recipe.size}>
-                </Card>
+                    serving={recipe.size} />
+                    <button className="card__btn" onClick={() => {setViewRecipe({recipe}); setOpenRecipe(true)}}>View Recipe</button>
+                
                 <div>
-                <Link className= "card__changeBtn"to={`/edit-recipe/${recipe.name}`}>Update</Link>
-                <button className="card__changeBtn" onClick={() => {setOpenModal(true)}}>Delete</button>
+                
+                    <Link className= "card__changeBtn"to={`/edit-recipe/${recipe.name}`}>Update</Link>
+                    <button className="card__changeBtn" onClick={() => {setOpenModal(true)}}>Delete</button>
                 </div>
             </div>
             )}
+            {openRecipe && <RecipeModal id='#hidden' closeModal={setOpenRecipe} recipe={viewRecipe} />}
             {openModal && <DeleteModal closeModal={setOpenModal} deletion={setdeletion}/>}
             {deletion &&  <DeleteRecipe id={recipeName}/>}
                 
@@ -71,7 +71,7 @@ const ListRecipePagesComponent = () => {
                 <Card title="Test Title" 
                     category="Cake" 
                     serving="Eight Slices"/>
-                   
+                   <button className="card__btn">View Recipe</button>
             </div>
         </div>
         
