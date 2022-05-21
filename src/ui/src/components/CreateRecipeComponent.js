@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./CreateRecipeComponent.css";
-import { useNavigate, useParams } from "react-router-dom";
+import "./styles/CreateRecipeComponent.css";
+import "./styles/Modal.css"
 import RecipeService from "../services/RecipeService";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function CreateRecipeComponent() {
+export default function CreateRecipeComponent(){
 
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
   const [category, setCategory] = useState('')
@@ -15,7 +16,6 @@ export default function CreateRecipeComponent() {
 
   const saveOrUpdateRecipe = (e) => {
     e.preventDefault();
-
     const ingredients = stringIngredients.toString().split(',')
     const method = stringMethod.toString().split(',')
     const recipe = {name, size, category, ingredients, method};
@@ -24,8 +24,7 @@ export default function CreateRecipeComponent() {
     if(id){
       RecipeService.updateRecipe(id, recipe).then((response) => {
         console.log(response.data);
-        history("/");
-
+        navigate("/");
       }).catch(error => {
         console.log(error);
       })
@@ -33,11 +32,11 @@ export default function CreateRecipeComponent() {
     }else{
       RecipeService.createRecipe(recipe).then((response) => {
         console.log(response.data);
-        history("/");
-
+        navigate("/");
       }).catch(error => {
         console.log(error);
       })
+
     }
 
   }
@@ -54,6 +53,7 @@ export default function CreateRecipeComponent() {
     })
   }, [])
 
+
   const title = () => {
     if(id){
       return <h1 style={{textAlign: "center"}}>Update a Recipe</h1>
@@ -63,15 +63,17 @@ export default function CreateRecipeComponent() {
   }
 
   return (
-    <div>
-      {title()}
-      <div className="form-container">
+      <div>
+        <div className='modalTitle'>
+          {title()}
+        </div><br/>
+        <div className="form-container">
         <form className="register-form">
           <input
             onChange={(e) => setName(e.target.value)}
             value = {name == null ? '' : name}
-            className="form-field"
-            type="text"
+            className="form-field" 
+            type="text" 
             placeholder="Name"
             name="Name"
           />
@@ -107,11 +109,11 @@ export default function CreateRecipeComponent() {
             placeholder="Method"
             name="Method"
           />
-          <button onClick = {(e) => saveOrUpdateRecipe(e)} className="form-field" type="submit">
+          <button onClick = {(e) => { saveOrUpdateRecipe(e);}} className="form-field" type="submit">
             Submit
           </button>
         </form>
-      </div>
-    </div>
+        </div>
+        </div>
   );
 }

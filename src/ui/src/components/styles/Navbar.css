@@ -25,7 +25,14 @@ main {
     padding: 16px 16px;
     cursor: pointer;
     vertical-align: middle;
+    background-color: black;
     color: white;
+    border: none;
+}
+
+.navbar__font{
+    text-decoration: underline;
+    font-size: 100%;
 }
 
 .footer__page{

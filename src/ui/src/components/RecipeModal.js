@@ -1,10 +1,7 @@
-import './Modal.css'
-import UpdateModal from './UpdateModal';
-import { useState } from 'react';
+import './styles/Modal.css'
+import { Link } from 'react-router-dom';
 
 export default function RecipeModal({closeModal, recipe}){
-    const [openUpdate, setOpenUpdate] = useState(false);
-    const [title, setTitle] = useState('')
     
     return(
         <div className='modalBackground'>
@@ -34,12 +31,12 @@ export default function RecipeModal({closeModal, recipe}){
                     </p> <br/>
                 </div>
                 <div className='modalFooter'>
-                    <button onClick={() => {setOpenUpdate(true); setTitle('Ingredients')}}>Update Ingredients</button>
-                    <button onClick={() => {setOpenUpdate(true); setTitle('Method')}}>Update Method</button>
+                    <Link to={`/edit-recipe/${recipe.recipe.name}` } className="submitButton">Update Ingredients</Link>
+                    <Link to={`/edit-recipe/${recipe.recipe.name}` } className="submitButton">Update Method</Link>
+
                     <button onClick={() => closeModal(false)} id='deleteBtn'>Cancel</button>
                 </div>
             </div>
-            {openUpdate && <UpdateModal id='#hidden' closeModal={setOpenUpdate} recipe={recipe} title={title} />}
          </div>
         
  

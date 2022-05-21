@@ -71,7 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 #ToDo:
-- Add Recipe Page for each
-- Add Update and delete functionality
-- Make design nicer
-- Attempt some testing
+ - Block out other updates when updating ingredients/method
