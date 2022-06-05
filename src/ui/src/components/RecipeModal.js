@@ -31,8 +31,8 @@ export default function RecipeModal({closeModal, recipe}){
                     </p> <br/>
                 </div>
                 <div className='modalFooter'>
-                    <Link to={`/edit-recipe/${recipe.recipe.name}` } className="submitButton">Update Ingredients</Link>
-                    <Link to={`/edit-recipe/${recipe.recipe.name}` } className="submitButton">Update Method</Link>
+                    <Link to={`/edit-recipe/${recipe.recipe.name}` } className="submitButton" state={{ unlocked: "ingredients" }}>Update Ingredients </Link>
+                    <Link to={`/edit-recipe/${recipe.recipe.name}` }  className="submitButton" state={{ unlocked: "method" }}>Update Method</Link>
 
                     <button onClick={() => closeModal(false)} id='deleteBtn'>Cancel</button>
                 </div>

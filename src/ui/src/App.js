@@ -14,7 +14,7 @@ function App() {
       <Navbar /><br />
         <Routes>
           <Route path="/" element = {<ListRecipePagesComponent />}></Route>
-          <Route path="/add-recipe" element = {<CreateRecipeComponent />}></Route>
+          <Route path="/add-recipe" element = {<CreateRecipeComponent/>}></Route>
           <Route path="/edit-recipe/:id" element = {<CreateRecipeComponent />}></Route>
         </Routes>
         <header className='footer__page' width="150" height="40"></header>
