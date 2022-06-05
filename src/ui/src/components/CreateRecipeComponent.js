@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
-import "./CreateRecipeComponent.css";
-import { useNavigate, useParams } from "react-router-dom";
+import "./styles/CreateRecipeComponent.css";
+import "./styles/Modal.css"
 import RecipeService from "../services/RecipeService";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-export default function CreateRecipeComponent() {
-
-  const history = useNavigate();
+export default function CreateRecipeComponent(){
+  
+  const navigate = useNavigate();
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
   const [category, setCategory] = useState('')
   const [stringIngredients, setIngredients] = useState('')
   const [stringMethod, setMethod] = useState('')
-  const {id} = useParams();
-
+  const{id} = useParams();
+  const location = useLocation();
   const saveOrUpdateRecipe = (e) => {
     e.preventDefault();
-
     const ingredients = stringIngredients.toString().split(',')
     const method = stringMethod.toString().split(',')
     const recipe = {name, size, category, ingredients, method};
-    console.log(recipe);
+    
 
     if(id){
       RecipeService.updateRecipe(id, recipe).then((response) => {
         console.log(response.data);
-        history("/");
-
+        navigate("/");
       }).catch(error => {
         console.log(error);
       })
@@ -33,11 +32,11 @@ export default function CreateRecipeComponent() {
     }else{
       RecipeService.createRecipe(recipe).then((response) => {
         console.log(response.data);
-        history("/");
-
+        navigate("/");
       }).catch(error => {
         console.log(error);
       })
+
     }
 
   }
@@ -54,6 +53,7 @@ export default function CreateRecipeComponent() {
     })
   }, [])
 
+
   const title = () => {
     if(id){
       return <h1 style={{textAlign: "center"}}>Update a Recipe</h1>
@@ -63,17 +63,20 @@ export default function CreateRecipeComponent() {
   }
 
   return (
-    <div>
-      {title()}
-      <div className="form-container">
+      <div>
+        <div className='modalTitle'>
+          {title()}
+        </div><br/>
+        <div className="form-container">
         <form className="register-form">
           <input
             onChange={(e) => setName(e.target.value)}
             value = {name == null ? '' : name}
-            className="form-field"
-            type="text"
+            className="form-field" 
+            type="text" 
             placeholder="Name"
             name="Name"
+            disabled={location.state.unlocked != "" ? true : false}
           />
           <input
           onChange={(e) => setSize(e.target.value)}
@@ -82,6 +85,8 @@ export default function CreateRecipeComponent() {
             type="text"
             placeholder="Size"
             name="Size"
+            disabled={location.state.unlocked != "" ? true : false}
+
           />
           <input
           onChange={(e) => setCategory(e.target.value)}
@@ -90,6 +95,7 @@ export default function CreateRecipeComponent() {
             type="text"
             placeholder="Category"
             name="Category"
+            disabled={location.state.unlocked != "" ? true : false}
           />
           <input
           onChange={(e) => setIngredients(e.target.value)}
@@ -98,6 +104,7 @@ export default function CreateRecipeComponent() {
             type="text"
             placeholder="Ingredients"
             name="Ingredients"
+            disabled={location.state.unlocked === "method" ? true : false}
           />
           <input
           onChange={(e) => setMethod(e.target.value)}
@@ -106,12 +113,14 @@ export default function CreateRecipeComponent() {
             type="text"
             placeholder="Method"
             name="Method"
+            disabled={(location.state.unlocked === "ingredients") ? true : false}
           />
-          <button onClick = {(e) => saveOrUpdateRecipe(e)} className="form-field" type="submit">
+          <button onClick = {(e) => { saveOrUpdateRecipe(e);}} className="form-field" type="submit">
             Submit
           </button>
         </form>
-      </div>
-    </div>
+        </div>
+        </div>
   );
+
 }
