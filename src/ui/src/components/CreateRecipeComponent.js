@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles/CreateRecipeComponent.css";
 import "./styles/Modal.css"
-import RecipeService from "../services/RecipeService";
+import {getRecipeByName, updateRecipe, createRecipe} from "../services/RecipeService";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function CreateRecipeComponent(){
@@ -22,7 +22,7 @@ export default function CreateRecipeComponent(){
     
 
     if(id){
-      RecipeService.updateRecipe(id, recipe).then((response) => {
+      updateRecipe(id, recipe).then((response) => {
         console.log(response.data);
         navigate("/");
       }).catch(error => {
@@ -30,7 +30,7 @@ export default function CreateRecipeComponent(){
       })
 
     }else{
-      RecipeService.createRecipe(recipe).then((response) => {
+      createRecipe(recipe).then((response) => {
         console.log(response.data);
         navigate("/");
       }).catch(error => {
@@ -42,7 +42,7 @@ export default function CreateRecipeComponent(){
   }
 
   useEffect(() => {
-    RecipeService.getRecipeByName(id).then((response) => {
+    getRecipeByName(id).then((response) => {
       setName(response.data.name)
       setCategory(response.data.category)
       setSize(response.data.size)
@@ -63,7 +63,7 @@ export default function CreateRecipeComponent(){
   }
 
   return (
-      <div>
+      <div data-testid="render-create">
         <div className='modalTitle'>
           {title()}
         </div><br/>
@@ -76,7 +76,7 @@ export default function CreateRecipeComponent(){
             type="text" 
             placeholder="Name"
             name="Name"
-            disabled={location.state.unlocked != "" ? true : false}
+            disabled={location.state.unlocked !== "" ? true : false}
           />
           <input
           onChange={(e) => setSize(e.target.value)}
@@ -85,7 +85,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Size"
             name="Size"
-            disabled={location.state.unlocked != "" ? true : false}
+            disabled={location.state.unlocked !== "" ? true : false}
 
           />
           <input
@@ -95,7 +95,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Category"
             name="Category"
-            disabled={location.state.unlocked != "" ? true : false}
+            disabled={location.state.unlocked !== "" ? true : false}
           />
           <input
           onChange={(e) => setIngredients(e.target.value)}

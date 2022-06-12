@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import RecipeService from '../services/RecipeService'
+import {getRecipes, deleteRecipe} from '../services/RecipeService'
 import Card from './Card';
 import './styles/Card.scss';
 import DeleteModal from './DeleteModal';
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const ListRecipePagesComponent = () => {
 
     const getAllRecipes = (setRecipes) => {
-        RecipeService.getRecipes().then((response) => {
+        getRecipes().then((response) => {
             setRecipes(response.data);
             console.log(response.data);
         }).catch(error =>{
@@ -32,7 +32,7 @@ const ListRecipePagesComponent = () => {
     const [recipeName, setRecipeName] = useState('');
 
     const DeleteRecipe = ({id}) => {
-        RecipeService.deleteRecipe(id).then(() =>{
+        deleteRecipe(id).then(() =>{
             getAllRecipes(setRecipes); 
             setdeletion(false)
             }).catch(error =>{
