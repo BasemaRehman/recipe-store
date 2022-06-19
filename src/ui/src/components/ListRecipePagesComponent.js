@@ -11,8 +11,11 @@ const ListRecipePagesComponent = () => {
 
     const getAllRecipes = (setRecipes) => {
         getRecipes().then((response) => {
-            setRecipes(response.data);
-            console.log(response.data);
+            if(response != null && response.data != null){
+                setRecipes();
+                console.log(response.data);
+            }
+            
         }).catch(error =>{
             console.log(error);
         })
@@ -41,7 +44,7 @@ const ListRecipePagesComponent = () => {
          }
 
     return (
-        <div className="wrapper">
+        <div data-testid="render-listrecipe" className="wrapper">
             {recipes.map(
             recipe => 
             <div key = {recipe.name} className='card'>

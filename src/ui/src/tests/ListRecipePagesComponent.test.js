@@ -1,12 +1,10 @@
-import axios from 'axios';
-import {getRecipes} from '../services/RecipeService';
 import ListRecipePagesComponent from '../components/ListRecipePagesComponent';
 import { render, screen } from '@testing-library/react';
+import { mockGetAll } from "./RecipeServiceMocks";
 
 jest.mock('axios');
 
-describe('getRecipes', () => {
-    it('gets data successfully', async () => {
+test('gets data successfully', async () => {
         const data = {
             "name" : "cake2",
             "category" : "test",
@@ -14,8 +12,9 @@ describe('getRecipes', () => {
             "ingredients": [],
             "method": []
         }
-        axios.get.mockImplementationOnce(() => Promise.resolve(data));
-        await expect(getRecipes('react')).resolves.toEqual(data);
-        const listRecipes = render(<ListRecipePagesComponent/>)
+        mockGetAll(data);
+        render(<ListRecipePagesComponent/>)
+        const listRecipes = screen.getByTestId("render-listrecipe");
+        expect(listRecipes).toBeInTheDocument();
+        
     })
-})

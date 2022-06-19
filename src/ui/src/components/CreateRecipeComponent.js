@@ -14,6 +14,7 @@ export default function CreateRecipeComponent(){
   const [stringMethod, setMethod] = useState('')
   const{id} = useParams();
   const location = useLocation();
+  
   const saveOrUpdateRecipe = (e) => {
     e.preventDefault();
     const ingredients = stringIngredients.toString().split(',')
@@ -70,13 +71,13 @@ export default function CreateRecipeComponent(){
         <div className="form-container">
         <form className="register-form">
           <input
-            onChange={(e) => setName(e.target.value)}
+            onChange={async (e) => setName(e.target.value)}
             value = {name == null ? '' : name}
             className="form-field" 
             type="text" 
             placeholder="Name"
             name="Name"
-            disabled={location.state.unlocked !== "" ? true : false}
+            disabled={location.state != null && location.state.unlocked !== ""  ? true : false}
           />
           <input
           onChange={(e) => setSize(e.target.value)}
@@ -85,7 +86,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Size"
             name="Size"
-            disabled={location.state.unlocked !== "" ? true : false}
+            disabled={location.state != null && location.state.unlocked !== "" ? true : false}
 
           />
           <input
@@ -95,7 +96,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Category"
             name="Category"
-            disabled={location.state.unlocked !== "" ? true : false}
+            disabled={location.state != null && location.state.unlocked !== "" ? true : false}
           />
           <input
           onChange={(e) => setIngredients(e.target.value)}
@@ -104,7 +105,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Ingredients"
             name="Ingredients"
-            disabled={location.state.unlocked === "method" ? true : false}
+            disabled={location.state != null && ocation.state.unlocked === "method" ? true : false}
           />
           <input
           onChange={(e) => setMethod(e.target.value)}
@@ -113,7 +114,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Method"
             name="Method"
-            disabled={(location.state.unlocked === "ingredients") ? true : false}
+            disabled={(location.state != null && location.state.unlocked === "ingredients") ? true : false}
           />
           <button onClick = {(e) => { saveOrUpdateRecipe(e);}} className="form-field" type="submit">
             Submit
