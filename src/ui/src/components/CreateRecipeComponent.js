@@ -4,42 +4,40 @@ import "./styles/Modal.css"
 import {getRecipeByName, updateRecipe, createRecipe} from "../services/RecipeService";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-export default function CreateRecipeComponent(){
-  
-  const navigate = useNavigate();
+
+export function CreateRecipeComponent(){
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
   const [category, setCategory] = useState('')
   const [stringIngredients, setIngredients] = useState('')
   const [stringMethod, setMethod] = useState('')
-  const{id} = useParams();
+  const {id} = useParams();
   const location = useLocation();
-  
-  const saveOrUpdateRecipe = (e) => {
+  const navigate = useNavigate();
+
+  const SaveOrUpdateRecipe =  (e) =>{
     e.preventDefault();
-    const ingredients = stringIngredients.toString().split(',')
-    const method = stringMethod.toString().split(',')
+    const ingredients = stringIngredients.toString().split(',');
+    const method = stringMethod.toString().split(',');
     const recipe = {name, size, category, ingredients, method};
-    
 
     if(id){
-      updateRecipe(id, recipe).then((response) => {
+      return (updateRecipe(id, recipe).then((response) => {
         console.log(response.data);
         navigate("/");
       }).catch(error => {
         console.log(error);
-      })
-
+      }))
+  
     }else{
-      createRecipe(recipe).then((response) => {
+      return(createRecipe(recipe).then((response) => {
         console.log(response.data);
         navigate("/");
       }).catch(error => {
         console.log(error);
-      })
-
+      }))
     }
-
+    
   }
 
   useEffect(() => {
@@ -53,7 +51,6 @@ export default function CreateRecipeComponent(){
       console.log(error)
     })
   }, [])
-
 
   const title = () => {
     if(id){
@@ -105,7 +102,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Ingredients"
             name="Ingredients"
-            disabled={location.state != null && ocation.state.unlocked === "method" ? true : false}
+            disabled={location.state != null && location.state.unlocked === "method" ? true : false}
           />
           <input
           onChange={(e) => setMethod(e.target.value)}
@@ -116,7 +113,7 @@ export default function CreateRecipeComponent(){
             name="Method"
             disabled={(location.state != null && location.state.unlocked === "ingredients") ? true : false}
           />
-          <button onClick = {(e) => { saveOrUpdateRecipe(e);}} className="form-field" type="submit">
+          <button onClick = {(e) => { SaveOrUpdateRecipe(e);}} className="form-field" type="submit">
             Submit
           </button>
         </form>

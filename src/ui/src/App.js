@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import ListRecipePagesComponent from './components/ListRecipePagesComponent';
-import CreateRecipeComponent from './components/CreateRecipeComponent';
+import {CreateRecipeComponent} from './components/CreateRecipeComponent';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Navbar from './components/Navbar';
 

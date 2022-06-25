@@ -6,13 +6,12 @@ import DeleteModal from './DeleteModal';
 import RecipeModal from './RecipeModal';
 import { Link } from 'react-router-dom';
 
-
-const ListRecipePagesComponent = () => {
+export default function ListRecipePagesComponent(){
 
     const getAllRecipes = (setRecipes) => {
         getRecipes().then((response) => {
             if(response != null && response.data != null){
-                setRecipes();
+                setRecipes(response.data);
                 console.log(response.data);
             }
             
@@ -68,4 +67,3 @@ const ListRecipePagesComponent = () => {
     )
 }
 
-export default ListRecipePagesComponent

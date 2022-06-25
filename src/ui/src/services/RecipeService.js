@@ -3,7 +3,8 @@ import axios from "axios";
 const BASE_URI = "http://localhost:8080/api/v1/recipes";
 
     export const getRecipes = async () => {
-        return axios.get(BASE_URI);
+        const results = await  axios.get(BASE_URI);
+        return results;
     }
 
     export const createRecipe = async (recipe) => {
