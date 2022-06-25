@@ -2,12 +2,12 @@ import axios from "axios";
 
 const BASE_URI = "http://localhost:8080/api/v1/recipes";
 
-class RecipeService{
-    getRecipes(){
-        return axios.get(BASE_URI);
+    export const getRecipes = async () => {
+        const results = await  axios.get(BASE_URI);
+        return results;
     }
 
-    createRecipe(recipe){
+    export const createRecipe = async (recipe) => {
         const config = {
             headers:{
                 "Access-Control-Allow-Origin": "http://localhost:3000",
@@ -17,18 +17,17 @@ class RecipeService{
         return axios.post(BASE_URI, JSON.stringify(recipe), config);
     }
 
-    getRecipeByName(name){
+    export const getRecipeByName = async (name) => {
         return axios.get(BASE_URI + '/' + name);
     }
 
-    updateRecipe(name, recipe){
+    export const updateRecipe = async (name, recipe) => {
         return axios.put(BASE_URI + '/' + name, recipe);
     }
 
-    deleteRecipe(name){
+    export const deleteRecipe = async (name) => {
         return axios.delete(BASE_URI + '/' + name);
     }
 
-}
 
-export default new RecipeService
+

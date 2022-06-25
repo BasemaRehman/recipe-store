@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import RecipeService from '../services/RecipeService'
+import {getRecipes, deleteRecipe} from '../services/RecipeService'
 import Card from './Card';
 import './styles/Card.scss';
 import DeleteModal from './DeleteModal';
 import RecipeModal from './RecipeModal';
 import { Link } from 'react-router-dom';
 
-
-const ListRecipePagesComponent = () => {
+export default function ListRecipePagesComponent(){
 
     const getAllRecipes = (setRecipes) => {
-        RecipeService.getRecipes().then((response) => {
-            setRecipes(response.data);
-            console.log(response.data);
+        getRecipes().then((response) => {
+            if(response != null && response.data != null){
+                setRecipes(response.data);
+                console.log(response.data);
+            }
+            
         }).catch(error =>{
             console.log(error);
         })
@@ -32,7 +34,7 @@ const ListRecipePagesComponent = () => {
     const [recipeName, setRecipeName] = useState('');
 
     const DeleteRecipe = ({id}) => {
-        RecipeService.deleteRecipe(id).then(() =>{
+        deleteRecipe(id).then(() =>{
             getAllRecipes(setRecipes); 
             setdeletion(false)
             }).catch(error =>{
@@ -41,7 +43,7 @@ const ListRecipePagesComponent = () => {
          }
 
     return (
-        <div className="wrapper">
+        <div data-testid="render-listrecipe" className="wrapper">
             {recipes.map(
             recipe => 
             <div key = {recipe.name} className='card'>
@@ -65,4 +67,3 @@ const ListRecipePagesComponent = () => {
     )
 }
 
-export default ListRecipePagesComponent

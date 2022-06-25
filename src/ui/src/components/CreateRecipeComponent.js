@@ -1,48 +1,47 @@
 import React, { useEffect, useState } from "react";
 import "./styles/CreateRecipeComponent.css";
 import "./styles/Modal.css"
-import RecipeService from "../services/RecipeService";
+import {getRecipeByName, updateRecipe, createRecipe} from "../services/RecipeService";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-export default function CreateRecipeComponent(){
-  
-  const navigate = useNavigate();
+
+export function CreateRecipeComponent(){
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
   const [category, setCategory] = useState('')
   const [stringIngredients, setIngredients] = useState('')
   const [stringMethod, setMethod] = useState('')
-  const{id} = useParams();
+  const {id} = useParams();
   const location = useLocation();
-  const saveOrUpdateRecipe = (e) => {
+  const navigate = useNavigate();
+
+  const SaveOrUpdateRecipe =  (e) =>{
     e.preventDefault();
-    const ingredients = stringIngredients.toString().split(',')
-    const method = stringMethod.toString().split(',')
+    const ingredients = stringIngredients.toString().split(',');
+    const method = stringMethod.toString().split(',');
     const recipe = {name, size, category, ingredients, method};
-    
 
     if(id){
-      RecipeService.updateRecipe(id, recipe).then((response) => {
+      return (updateRecipe(id, recipe).then((response) => {
         console.log(response.data);
         navigate("/");
       }).catch(error => {
         console.log(error);
-      })
-
+      }))
+  
     }else{
-      RecipeService.createRecipe(recipe).then((response) => {
+      return(createRecipe(recipe).then((response) => {
         console.log(response.data);
         navigate("/");
       }).catch(error => {
         console.log(error);
-      })
-
+      }))
     }
-
+    
   }
 
   useEffect(() => {
-    RecipeService.getRecipeByName(id).then((response) => {
+    getRecipeByName(id).then((response) => {
       setName(response.data.name)
       setCategory(response.data.category)
       setSize(response.data.size)
@@ -53,7 +52,6 @@ export default function CreateRecipeComponent(){
     })
   }, [])
 
-
   const title = () => {
     if(id){
       return <h1 style={{textAlign: "center"}}>Update a Recipe</h1>
@@ -63,20 +61,20 @@ export default function CreateRecipeComponent(){
   }
 
   return (
-      <div>
+      <div data-testid="render-create">
         <div className='modalTitle'>
           {title()}
         </div><br/>
         <div className="form-container">
         <form className="register-form">
           <input
-            onChange={(e) => setName(e.target.value)}
+            onChange={async (e) => setName(e.target.value)}
             value = {name == null ? '' : name}
             className="form-field" 
             type="text" 
             placeholder="Name"
             name="Name"
-            disabled={location.state.unlocked != "" ? true : false}
+            disabled={location.state != null && location.state.unlocked !== ""  ? true : false}
           />
           <input
           onChange={(e) => setSize(e.target.value)}
@@ -85,7 +83,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Size"
             name="Size"
-            disabled={location.state.unlocked != "" ? true : false}
+            disabled={location.state != null && location.state.unlocked !== "" ? true : false}
 
           />
           <input
@@ -95,7 +93,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Category"
             name="Category"
-            disabled={location.state.unlocked != "" ? true : false}
+            disabled={location.state != null && location.state.unlocked !== "" ? true : false}
           />
           <input
           onChange={(e) => setIngredients(e.target.value)}
@@ -104,7 +102,7 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Ingredients"
             name="Ingredients"
-            disabled={location.state.unlocked === "method" ? true : false}
+            disabled={location.state != null && location.state.unlocked === "method" ? true : false}
           />
           <input
           onChange={(e) => setMethod(e.target.value)}
@@ -113,9 +111,9 @@ export default function CreateRecipeComponent(){
             type="text"
             placeholder="Method"
             name="Method"
-            disabled={(location.state.unlocked === "ingredients") ? true : false}
+            disabled={(location.state != null && location.state.unlocked === "ingredients") ? true : false}
           />
-          <button onClick = {(e) => { saveOrUpdateRecipe(e);}} className="form-field" type="submit">
+          <button onClick = {(e) => { SaveOrUpdateRecipe(e);}} className="form-field" type="submit">
             Submit
           </button>
         </form>
